@@ -3,21 +3,13 @@ import path from 'node:path';
 import fs from 'node:fs/promises';
 import process from 'node:process';
 import { buildFileName } from './buildFileName';
-
-var merger = new PDFMerger();
-
-const hasDirectory = async (dirPath: string) => {
-    try {
-        const stats = await fs.stat(dirPath);
-        return stats.isDirectory();
-    } catch (error) {
-        return false;
-    }
-}
+import { hasDirectory } from './hasDirectory';
 
 (async () => {
     try {
+        const merger = new PDFMerger();
         const directoryPath = process.argv[2];
+
         if (!directoryPath) {
             throw new Error("Please provide a directory path as an argument.");
         }
